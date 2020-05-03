@@ -60,6 +60,10 @@ export default {
             firebase.auth()
             .signInWithEmailAndPassword(this.email, this.password)
             .then( ()=> {
+            firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
+              .update({
+              info: true
+            })
                 this.$router.push('/')
             },
             err => {

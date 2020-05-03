@@ -8,16 +8,9 @@
       <div class="info-contact">
         <img src="../assets/img/dp.png" alt />
       </div>
-      <div class="email">
-        <div class="name-contact d-flex flex-column">
-          <p>Name</p>
-          <h3>Awikwok</h3>
-        </div>
-        <div class="email-contact">
-          <p>Email</p>
-          <h3>Awikwok@gmail.com</h3>
-        </div>
-      </div>
+      <div class="name-people"></div>
+      <div class="email-people"></div>
+      <div class="email-people"></div>
       <div class="location p-2">
         <div>
           <p>Location</p>
@@ -88,44 +81,25 @@ export default {
   height: 170px;
   border-radius: 50%;
 }
-.email {
+.name-people {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 160px;
+  height: 70px;
   background: #ffffff;
   margin-bottom: 10px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px 0px;
   padding: 10px;
 }
-.name-contact {
+.email-people {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 70px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-.name-contact p {
-  font-weight: 600;
-  padding: 0;
-  margin: 1px;
-}
-.name-contact h3 {
-  padding-left: 10px;
-  font-size: 20px;
-  font-weight: 600;
-}
-.email-contact {
-  width: 100%;
-  height: 70px;
-}
-.email-contact p {
-  font-weight: 600;
-  padding: 0;
-  margin: 1px;
-}
-.email-contact h3 {
-  padding-left: 10px;
-  font-size: 20px;
-  font-weight: 600;
+  background: #ffffff;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px 0px;
+  padding: 10px;
 }
 .location {
   width: 100%;

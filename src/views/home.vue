@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid d-flex">
-    <listChat v-on:sendslide="switchToChat" v-on:switch="toProfile" />
+    <listChat v-on:switch="toProfile"/>
     <myProfile v-on:substitute="showList" />
     <nothing />
     <chat v-on:emitshow="showprofile" />
@@ -47,10 +47,6 @@ export default {
             const showProfile = document.querySelector(".my-profile")
             hideChat.classList.remove("hide-chat")
             showProfile.classList.remove("show-profile")
-        },
-        switchToChat() {
-            document.querySelector(".nothing").style.display ='none'
-            document.querySelector(".chat").style.display ='flex'
         },
     }
 }

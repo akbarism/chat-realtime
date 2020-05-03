@@ -70,7 +70,8 @@ export default {
                 .set({
                     email: this.email,
                     displayName: this.fullname,
-                    status: 'Hi There',
+                    status: 'hi there ! im good,',
+                    info: true,
                     img: 'https://firebasestorage.googleapis.com/v0/b/centimeter-7a5f3.appspot.com/o/dp.png?alt=media&token=8881ebd6-c262-43d5-9f70-8598d2cd027f',
                 })
                 .catch(error => {

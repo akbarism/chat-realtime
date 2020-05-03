@@ -4,14 +4,17 @@
       <i @click="$emit('substitute')" class="fas fa-chevron-left text-light"></i>
       <h3 class="text-light ml-3 mt-1">Profile</h3>
     </nav>
-    <div class="parent" v-for="name in myData" :key="name">
-      <div class="ur-photo">
-        <img
-          src="../assets/img/ezgif-7-62d75d806b13.gif"
-          alt
-          data-toggle="modal"
-          data-target="#exampleModal"
-        />
+    <div class="parent" v-for="(name, id) in personalData" :key="id">
+      <div class="ur-photo" v-if="picture == null">
+        <img src="../assets/img/dp.png" />
+        <progress id="progress" :value="uploadValue" max="100" v-if="uploadValue !== 0"></progress>
+        <i class="fas fa-camera edt-photo"></i>
+        <input type="file" class="pick-files" @change="pickFiles" />
+      </div>
+      <div class="ur-photo" v-else>
+        <img :src="picture" alt data-toggle="modal" data-target="#exampleModal" />
+        <i class="fas fa-camera edt-photo"></i>
+        <input type="file" class="pick-files" @change="pickFiles" />
         <modal />
       </div>
       <section class="ur-name">
@@ -22,6 +25,15 @@
           <h4 class="nm">{{name.displayName}}</h4>
           <input type="text" id="some" class="edt" :value="name.displayName" />
           <i class="fas fa-pen" @click="editName" for="some"></i>
+        </section>
+      </section>
+      <section class="ur-info">
+        <section class="sub">
+          <p class="font-weight-bold">Email</p>
+        </section>
+        <section class="dwn">
+          <p class="font-weight-">{{name.email}}</p>
+          <i class="fas fa-pen"></i>
         </section>
       </section>
       <section class="ur-info">
@@ -45,7 +57,7 @@
 
 <script>
 import firebase from 'firebase';
-import db from './firebaseInit';
+// import db from './firebaseInit';
 import modal from '../components/module/modal.vue';
 
 export default {
@@ -53,10 +65,18 @@ export default {
     data() {
         return {
             myData: [],
+            imageData: null,
+            picture: null,
+            uploadValue: 0,
         }
     },
     components: {
         modal,
+    },
+    computed: {
+        personalData() {
+            return this.$store.state.personalData
+        }
     },
     methods: {
         editName() {
@@ -65,14 +85,26 @@ export default {
             document.querySelector(".nm").style.display ='none'
         },
         getMyData () {
-            db.collection('user').where('email', '==', firebase.auth().currentUser.email).onSnapshot((querySnapshot) => {
-              let myProfile = []
-              querySnapshot.forEach(doc => {
-                myProfile.push(doc.data())
-              })
-              this.myData = myProfile
-              console.log(myProfile)
-         })
+            this.$store.commit('GET_PROFIL')
+        },
+        pickFiles() {
+             this.imageData = event.target.files[0]
+             this.picture = null
+             const storageRef = firebase.storage().ref(`profil/${this.imageData.name}`).put(this.imageData)
+             storageRef.on('state_changed', snapshot => {
+                this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+             }, error => { console.log(error.message) },
+             () => {
+                this.uploadValue = 100
+                 storageRef.snapshot.ref.getDownloadURL().then((url) => {
+                     this.picture = url
+                     firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
+                .update({
+                    img: url,
+                })
+             })
+        }
+      )
         }
     },
     created () {
@@ -104,10 +136,17 @@ export default {
   overflow-y: scroll;
   padding: 0 5px 0 5px;
 }
+#progress {
+  width: 80px;
+  height: 10px;
+  position: absolute;
+  /* border-radius: 1px; */
+}
 .ur-photo {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100%;
   height: 200px;
   background: #3470bf;
@@ -118,15 +157,20 @@ export default {
 .ur-photo img {
   width: 170px;
   height: 170px;
+  margin-top: 40px ;
   border-radius: 50%;
   object-fit: cover;
   cursor: grab;
+}
+.edt-photo {
+  position: relative;
+  top: -10px;
 }
 .ur-name {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100px;
+  height: 90px;
   background: #ffffff;
   margin-bottom: 10px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px 0px;
@@ -161,7 +205,7 @@ export default {
 }
 .ur-info {
   width: 100%;
-  height: 100px;
+  height: 90px;
   background: #ffffff;
   margin-bottom: 10px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px 0px;
@@ -175,6 +219,33 @@ export default {
 }
 .fas {
   font-size: 20px;
+}
+.pick-files {
+  position: relative;
+  top:  -30px;
+  color: transparent;
+  width: 20px;
+  height: 25px;
+}
+.pick-files::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.pick-files::before {
+  content: "ok";
+  color: #42b549;
+  display: inline-block;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+}
+.pick-files:active {
+  outline: none;
+}
+.pick-files:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 /* ---------------- css for styling scroll ---------------------------*/
 ::-webkit-scrollbar {

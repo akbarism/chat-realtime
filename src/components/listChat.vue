@@ -4,8 +4,8 @@
       <img src="../assets/img/centi-mater-fix.png" alt />
       <h3>centiMeter</h3>
     </div>
-    <div class="nav-list">
-      <img @click="$emit('switch')" class="pp" src="../assets/img/isyana-sarasvati.jpg" alt />
+    <div class="nav-list" v-for="(Data, displayName) in personalData" :key="displayName">
+      <img @click="$emit('switch')" class="pp" :src="Data.img" alt />
       <img class="add-chat" src="../assets/img/icon-chating.svg" alt title="New Chat" />
       <div class="btn-group dropleft">
         <i
@@ -29,24 +29,20 @@
       <input type="text" placeholder="search something hehe" />
     </div>
     <div class="parent-chat">
-      <div
-        class="child-chat"
-        @click="$emit('sendslide')"
-        v-for="list in listContact"
-        :key="list.id"
-      >
-        <img src="../assets/img/dp.png" alt />
+      <div class="child-chat" v-for="(Data, displayName) in myData" :key="displayName">
+        <img :src="Data.img" alt />
         <div class="info-msg">
           <div class="list-name">
-            <h6>{{list.displayName}}</h6>
+            <h6 @click="switchToChat(Data.displayName)">{{Data.displayName}}</h6>
           </div>
           <div class="msg">
-            <p>{{list.email}}</p>
+            <p>{{Data.status}}</p>
           </div>
         </div>
         <div class="end-msg d-flex align-items-center">
-          <div class="count">0</div>
           <i class="fas fa-ellipsis-v" title="Menu"></i>
+          <div v-if="!Data.info">Offline</div>
+          <div v-else>Online</div>
         </div>
       </div>
     </div>
@@ -55,7 +51,7 @@
 
 <script>
 import firebase from 'firebase'
-import db from './firebaseInit'
+// import db from './firebaseInit'
 
 export default {
     name: 'listChat',
@@ -63,27 +59,51 @@ export default {
         return {
             listContact: [],
             authUser: {},
+            navContact: '',
+            logoutUser: firebase.auth().currentUser.uid
+        }
+    },
+    computed: {
+        myData() {
+            return this.$store.state.myData
+        },
+        personalData() {
+            return this.$store.state.personalData
         }
     },
     methods: {
         logout() {
-            firebase.auth().signOut().then(
+            firebase.auth().signOut()
+            firebase.firestore().collection('user').doc(this.logoutUser)
+            .update({
+             info: false
+            })
+            .then(
                 this.$router.go('/login') )
             .catch(error => {
                 console.log(error)
             })
+            },
+        getMyData () {
+            this.$store.commit('GET_MY_DATA')
         },
-          getMyData () {
-            db.collection('user').onSnapshot((querySnapshot) => {
-              querySnapshot.forEach(doc => {
-                this.listContact.push(doc.data())              
-              })
-         })
-        }
+        getProfile() {
+            this.$store.commit('GET_PROFIL')
+        },
+        getContact() {
+        this.$store.commit('SEND_CONTACT')
+         },
+        switchToChat(displayName) {
+            this.$store.commit('TARGET', displayName)
+            console.log(displayName);
+            document.querySelector(".nothing").style.display ='none'
+            document.querySelector(".chat").style.display ='flex'
+        },
     },
     created() {
         this.getMyData();
         this.authUser = firebase.auth().currentUser;
+        this.getContact();
     }
 }
 </script>
