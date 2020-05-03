@@ -1,19 +1,19 @@
 <template>
   <div class="container-fluid d-flex">
-      <listChat v-on:switch="toProfile"/>
-      <myProfile v-on:substitute="showList"/>
-      <chat v-on:emitshow="showprofile"/>
-      <people v-on:removemit="hideprofile"/>
-      <navBottom/>
+    <listChat v-on:sendslide="switchToChat" v-on:switch="toProfile" />
+    <myProfile v-on:substitute="showList" />
+    <nothing />
+    <chat v-on:emitshow="showprofile" />
+    <people v-on:removemit="hideprofile" />
   </div>
 </template>
 
 <script>
 import listChat from '../components/listChat.vue';
 import chat from '../components/chat.vue';
+import nothing from '../components/nothing.vue';
 import people from '../components/peopleProfile.vue';
 import myProfile from '../components/myProfile.vue';
-import navBottom from '../components/module/navBottom.vue';
 
 export default {
     name: 'home',
@@ -22,7 +22,7 @@ export default {
         chat,
         people,
         myProfile,
-        navBottom,
+        nothing,
     },
     methods:{
         showprofile() {
@@ -37,8 +37,7 @@ export default {
             removeClass.classList.remove("chat-shrink");
             hideclass.classList.remove("now-profile");
         },
-        toProfile() {
-            
+        toProfile() {          
             const showProfile = document.querySelector(".my-profile")
             document.querySelector(".list-chat").classList.add("hide-chat")
             showProfile.classList.add("show-profile")
@@ -48,16 +47,20 @@ export default {
             const showProfile = document.querySelector(".my-profile")
             hideChat.classList.remove("hide-chat")
             showProfile.classList.remove("show-profile")
-        }
+        },
+        switchToChat() {
+            document.querySelector(".nothing").style.display ='none'
+            document.querySelector(".chat").style.display ='flex'
+        },
     }
 }
 </script>
 
 <style scoped>
-.container-fluid{
-    margin: 0;
-    padding: 0;
-    /* width: 100%; */
-    height: 100vh;
+.container-fluid {
+  margin: 0;
+  padding: 0;
+  /* width: 100%; */
+  height: 100vh;
 }
 </style>
