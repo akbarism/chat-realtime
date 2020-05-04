@@ -4,13 +4,13 @@
       <i class="fas fa-times" @click="$emit('removemit')"></i>
       <h5>Info Contact</h5>
     </div>
-    <div class="display-profile">
-      <div class="info-contact">
-        <img src="../assets/img/dp.png" alt />
+    <div class="display-profile" >
+      <div class="info-contact" >
+        <img :src="navContact.img" alt />
       </div>
-      <div class="name-people"></div>
-      <div class="email-people"></div>
-      <div class="email-people"></div>
+      <div class="name-people">{{navContact.displayName}}</div>
+      <div class="email-people">{{navContact.email}}</div>
+      <div class="email-people">{{navContact.status}}</div>
       <div class="location p-2">
         <div>
           <p>Location</p>
@@ -23,9 +23,16 @@
 <script>
 export default {
     name: 'people',
-    methods: {
-        
-    }
+ computed: {
+     navContact() {
+         return this.$store.state.navContact        
+     }
+ },
+ methods: {
+     target(displayName) {
+         this.$store.commit('TARGET', displayName)
+     }
+ }
 }
 </script>
 

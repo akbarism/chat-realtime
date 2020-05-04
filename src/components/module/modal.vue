@@ -10,8 +10,8 @@
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <img src="../../assets/img/ezgif-7-62d75d806b13.gif" alt />
+        <div class="modal-content" v-for="item in personalData" :key="item.id">
+          <img :src="item.img" alt />
         </div>
       </div>
     </div>
@@ -20,7 +20,20 @@
 
 <script>
 export default {
-    name: 'modal'
+    name: 'modal',
+    computed: {
+      personalData() {
+        return this.$store.state.personalData
+      }
+    },
+    methods: {
+       getMyData () {
+            this.$store.commit('GET_PROFIL')
+        },
+    },
+    created() {
+      this.getMyData();
+    }
 }
 </script>
 

@@ -12,14 +12,27 @@ export default new vuex.Store({
         navContact: [],
         dataPeople: [],
         personalData: [],
+        messages:[],
+        message: null,
+        authUSer: firebase.auth().currentUser,
+        // logoutUser: firebase.auth().currentUser.uid,
 
     },
     mutations: {
+        // LOGOUT(state) {
+        //     firebase.auth().signOut()
+        //     firebase.firestore().collection('user').doc(state.authUSer)
+        //     .update({
+        //      info: false
+        //     })
+        // },
         GET_MY_DATA(state) {
+            let perData = []
             db.collection('user').onSnapshot((querySnapshot) => {
                 querySnapshot.forEach(doc => {
-                  state.myData.push(doc.data())              
+                  perData.push(doc.data())              
                 })
+                state.myData = perData
            })
         },
         GET_PROFIL(state) {
@@ -33,20 +46,38 @@ export default new vuex.Store({
         },
         TARGET(state, displayName) {
             const item = state.myData.filter(Data => Data.displayName === displayName)
-            // const select = state.navContact.filter(Data => Data.displayName === displayName)
-            if (state.navContact.length === 0 || state.navContact === undefined){
                 state.navContact = item[0]
-            }
+                
         },
         SEND_CONTACT(state) {
             let data = state.myData
             console.log(data);
             for (let i = 0; i < data.length; i++) {
                 if (data[i].displayName) {
-                state.dataPeople = data[i] 
-                console.log(state.dataPeople);           
+                state.dataPeople = data[i]          
                }
              } 
+        },
+        FETCH(state) {
+            db.collection('chat').where('author', '==', firebase.auth().currentUser.email);
+            db.collection('chat').where('received', '==', state.navContact.email);
+            db.collection('chat').orderBy('createdAt')
+        .onSnapshot((querySnapshot) => {
+          // eslint-disable-next-line prefer-const
+          let allMessage = [];
+          querySnapshot.forEach((doc) => {
+            if ((doc.data().received === state.navContact.email && doc.data().author
+            === firebase.auth().currentUser.email&& doc.data().message !== null && doc.data().message !== ' ')
+            || (doc.data().received === firebase.auth().currentUser.email
+            && doc.data().author === state.navContact.email && doc.data().message !== null
+            && doc.data().message !== ' ')) {
+              allMessage.push(doc.data());
+            }
+            // return allMessage;
+          });
+          state.messages = allMessage;
+          
+        });
         }
     },
     actions: {

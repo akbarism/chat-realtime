@@ -6,10 +6,11 @@
     </nav>
     <div class="parent" v-for="(name, id) in personalData" :key="id">
       <div class="ur-photo" v-if="picture == null">
-        <img src="../assets/img/dp.png" />
+        <img :src="name.img" data-toggle="modal" data-target="#exampleModal" />
         <progress id="progress" :value="uploadValue" max="100" v-if="uploadValue !== 0"></progress>
         <i class="fas fa-camera edt-photo"></i>
         <input type="file" class="pick-files" @change="pickFiles" />
+        <modal />
       </div>
       <div class="ur-photo" v-else>
         <img :src="picture" alt data-toggle="modal" data-target="#exampleModal" />
@@ -23,7 +24,13 @@
         </section>
         <section class="dwn">
           <h4 class="nm">{{name.displayName}}</h4>
-          <input type="text" id="some" class="edt" :value="name.displayName" />
+          <input
+            type="text"
+            id="some"
+            class="edt"
+            v-model="name.displayName"
+            @keyup.enter="updateName"
+          />
           <i class="fas fa-pen" @click="editName" for="some"></i>
         </section>
       </section>
@@ -105,6 +112,12 @@ export default {
              })
         }
       )
+        },
+        updateName () {
+            firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
+                .update({
+                    displayName: this.name.displayName
+                })
         }
     },
     created () {
@@ -157,7 +170,7 @@ export default {
 .ur-photo img {
   width: 170px;
   height: 170px;
-  margin-top: 40px ;
+  margin-top: 40px;
   border-radius: 50%;
   object-fit: cover;
   cursor: grab;
@@ -222,7 +235,7 @@ export default {
 }
 .pick-files {
   position: relative;
-  top:  -30px;
+  top: -30px;
   color: transparent;
   width: 20px;
   height: 25px;
@@ -231,7 +244,7 @@ export default {
   visibility: hidden;
 }
 .pick-files::before {
-  content: "ok";
+  content: "";
   color: #42b549;
   display: inline-block;
   outline: none;

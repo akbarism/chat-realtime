@@ -29,20 +29,22 @@
       <input type="text" placeholder="search something hehe" />
     </div>
     <div class="parent-chat">
-      <div class="child-chat" v-for="(Data, displayName) in myData" :key="displayName">
-        <img :src="Data.img" alt />
-        <div class="info-msg">
-          <div class="list-name">
-            <h6 @click="switchToChat(Data.displayName)">{{Data.displayName}}</h6>
+      <div  v-for="(Data, displayName) in myData" :key="displayName">
+        <div class="child-chat" v-if="Data.email !== authUser.email" >
+          <img :src="Data.img" alt />
+          <div class="info-msg" >
+            <div class="list-name">
+              <h6 @click="switchToChat(Data.displayName)">{{Data.displayName}}</h6>
+            </div>
+            <div class="msg">
+              <p>{{Data.status}}</p>
+            </div>
           </div>
-          <div class="msg">
-            <p>{{Data.status}}</p>
+          <div class="end-msg d-flex align-items-center" >
+            <i class="fas fa-ellipsis-v" title="Menu"></i>
+            <div v-if="!Data.info">Offline</div>
+            <div v-else>Online</div>
           </div>
-        </div>
-        <div class="end-msg d-flex align-items-center">
-          <i class="fas fa-ellipsis-v" title="Menu"></i>
-          <div v-if="!Data.info">Offline</div>
-          <div v-else>Online</div>
         </div>
       </div>
     </div>
@@ -95,10 +97,13 @@ export default {
          },
         switchToChat(displayName) {
             this.$store.commit('TARGET', displayName)
-            console.log(displayName);
+            this.fetchMessage();
             document.querySelector(".nothing").style.display ='none'
             document.querySelector(".chat").style.display ='flex'
         },
+        fetchMessage() {
+        this.$store.commit('FETCH')
+        }
     },
     created() {
         this.getMyData();

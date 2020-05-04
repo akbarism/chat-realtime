@@ -1,8 +1,8 @@
 <template>
   <div class="chat">
-    <div class="nav-chat" >
+    <div class="nav-chat">
       <navBottom v-on:sendBack="backToList" />
-      <img @click="$emit('emitshow')" src="../assets/img/dp.png" alt />
+      <img @click="$emit('emitshow')" :src="navContact.img" alt />
       <h3>{{navContact.displayName}}</h3>
       <i class="fas fa-search mr-3 text-light"></i>
       <div class="../assets/img/icon-doc.svg"></div>
@@ -11,7 +11,7 @@
     <div class="main-chat">
       <div
         :class="[message.author === authUser.email ? 'me' : 'you']"
-        v-for="(message, id) in messages"
+        v-for="(message, id) in msgs"
         :key="id"
       >
         <div :class="[message.author === authUser.email ? 'balon-chat-me' : 'balon-chat-you']">
@@ -35,40 +35,42 @@ import navBottom from './module/navBottom.vue';
 
 export default {
  name: 'chat',
- props: ['sendDataPeople'],
  components: {
      navBottom,
  },
  data() {
      return {
-         message: null,
-         messages: [],
-         authUser: {},
+         contactName: this.$store.state.navContact,
+         message: this.$store.state.message,
      }
  },
  computed: {
      navContact() {
          return this.$store.state.navContact        
+     },
+     msgs() {
+         return this.$store.state.messages
+     },
+     msg() {
+         return this.$store.state.message
      }
-     
  },
  methods: {
      send(){
          db.collection('chat').add({
              message: this.message,
-             author: this.authUser.email,
+             author: firebase.auth().currentUser.email,
+             received: this.navContact.email,
              createdAt: new Date()
          })
+         this.message = null
+     },
+     target(displayName){
+         this.$store.commit('TARGET', displayName)
      },
      fetchMessages() {
-         db.collection('chat').orderBy('createdAt').onSnapshot((querySnapshot) => {
-             let allMessages = []
-              querySnapshot.forEach(doc => {
-                allMessages.push(doc.data())
-              })
-              this.messages = allMessages;
-              this.message = null
-         })
+      this.$store.commit('FETCH')
+      this.message = null
      },
      backToList() {
             document.querySelector(".chat").style.display = 'none'
@@ -87,9 +89,8 @@ export default {
              this.authUser = {}
          }
      })
-
-     this.fetchMessages();
-    //  this.getContact();
+    
+     
  }
 }
 </script>
