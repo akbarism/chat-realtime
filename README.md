@@ -12,7 +12,6 @@
 <p align="center">
   Built with Vue Js.
 </p>
- [Vue.js](https://vuejs.org/v2/guide/)
 
 ## Table of Contents
 
@@ -77,5 +76,5 @@ Fork the Project
   <img height="100" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/firebase/firebase.png"> &nbsp
 </p>
 <p align="center">
-  database and API this project are managed by Firebase
+  database and API this project are managed by <a href src="https://firebase.google.com/">Firebase</a>
 </p>
