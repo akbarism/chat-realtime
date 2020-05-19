@@ -73,8 +73,8 @@ Fork the Project
 
 ## Related Project (Backend)
  <p align="center">
-  <img height="100" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/firebase/firebase.png> &nbsp
-</p>
+  <img height="100" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/firebase/firebase.png"> &nbsp
+</p> <br>
 <p align="center">
   database and API this project are managed by Firebase
 </p>
