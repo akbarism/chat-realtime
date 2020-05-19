@@ -6,7 +6,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/akbarism/chat-realtime?style=social)
 
 <p align="center">
-  <img height="100" src="https://vuejs.org/images/logo.png">
+  <img height="100" src="https://vuejs.org/images/logo.png"> &nbsp
   <img height="100" src="https://avatars1.githubusercontent.com/u/2918581?s=200&v=4">
 </p>
 <p align="center">
@@ -37,10 +37,10 @@
 ## Usage for development
 
 1. Open your terminal or command prompt
-2. Type `git clone https://github.com/akbarism/point-of-sale.git`
+2. Type `git clone https://github.com/akbarism/chat-realtime.git`
 3. Open the folder and type `npm install` for install dependencies
 4. Create Environment Variable [here](#create-environment-variable)
-5. Before run this, you must run [backend] first(#related-project-backend)
+5. Before run this, you must run [backend](#related-project-backend) first
 6. Type `npm run serve` for run this app.
 
 ## Create Environment Variable
@@ -73,5 +73,4 @@ Fork the Project
 
 
 ## Related Project (Backend)
-database and API this project are managed by [Firebase] (https://firebase.google.com/)
-* [`Backend-Library`](https://github.com/akbarism/pos-backend)
+database and API this project are managed by [Firebase](https://firebase.google.com/)
