@@ -6,10 +6,8 @@
 ![GitHub forks](https://img.shields.io/github/forks/akbarism/chat-realtime?style=social)
 
 <p align="center">
-  <img height="100" src="https://vuejs.org/images/logo.png"> &bnsp
-  <img height="100" src="https://vuejs.org/https://avatars1.githubusercontent.com/u/2918581?s=200&v=4">
-  <br>
-  <img height="100" src="https://camo.githubusercontent.com/87d7034892fd41dc88f3606bb44b853f87cd2c51/68747470733a2f2f7265666163746f72696e6775692e6e7963332e63646e2e6469676974616c6f6365616e7370616365732e636f6d2f7461696c77696e642d6c6f676f2e737667">
+  <img height="100" src="https://vuejs.org/images/logo.png">
+  <img height="100" src="https://avatars1.githubusercontent.com/u/2918581?s=200&v=4">
 </p>
 <p align="center">
   Built with Vue Js.
