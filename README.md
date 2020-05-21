@@ -7,10 +7,10 @@
 
 <p align="center">
   <img height="100" src="https://vuejs.org/images/logo.png"> &nbsp
-  <img height="100" src="https://avatars1.githubusercontent.com/u/2918581?s=200&v=4">
+  <img height="100" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/firebase/firebase.png">
 </p>
 <p align="center">
-  Built with Vue Js.
+  Built with Vue Js And Firebase.
 </p>
 
 ## Table of Contents
@@ -57,8 +57,18 @@ VUE_APP_SECRET_KEY=YOUR_API_KEY
 
 ## Screenshots
 
-coming soon
 
+<div align="center" margin-bottom="10px">
+    <img width="430" src="https://github.com/akbarism/chat-realtime/blob/master/src/assets/img/chat-1.png"> &nbsp
+    <img width="430" src="https://github.com/akbarism/chat-realtime/blob/master/src/assets/img/chat-2.png">
+</div>
+<div align="center" margin-bottom="10px">
+    <img width="430" src="https://github.com/akbarism/chat-realtime/blob/master/src/assets/img/chat-3.png">  &nbsp 
+    <img width="430" src="https://github.com/akbarism/chat-realtime/blob/master/src/assets/img/chat-4.png">
+</div>
+<div align="center" margin-bottom="10px">
+    <img width="860" src="https://github.com/akbarism/chat-realtime/blob/master/src/assets/img/chat-5.png">
+</div>
 
 ## Contributing
 
