@@ -31,7 +31,9 @@
             v-model="name.displayName"
             @keyup.enter="updateName"
           />
-          <i class="fas fa-pen" @click="editName" for="some"></i>
+          <label for="some">
+            <i class="fas fa-pen" @click="editName"></i>
+          </label>
         </section>
       </section>
       <section class="ur-info">
@@ -40,7 +42,8 @@
         </section>
         <section class="dwn">
           <p class="font-weight-">{{name.email}}</p>
-          <i class="fas fa-pen"></i>
+          <label for="some">
+          </label>
         </section>
       </section>
       <section class="ur-info">
@@ -48,8 +51,11 @@
           <p class="font-weight-bold">Status</p>
         </section>
         <section class="dwn">
-          <p class="font-weight-">{{name.status}}</p>
-          <i class="fas fa-pen"></i>
+          <p class="a2 font-weight">{{name.status}}</p>
+          <input type="text" id="a3" class="a1" v-model="name.status" @keyup.enter="updateStatus" />
+          <label for="a3">
+            <i class="fas fa-pen" @click="clickStatus"></i>
+          </label>
         </section>
       </section>
       <section class="ur-location">
@@ -88,8 +94,11 @@ export default {
     methods: {
         editName() {
             document.querySelector(".edt").classList.add("editok")
-            console.log('ok');
             document.querySelector(".nm").style.display ='none'
+        },
+        clickStatus() {
+            document.querySelector(".a1").classList.add("editok")
+            document.querySelector(".a2").style.display ='none'
         },
         getMyData () {
             this.$store.commit('GET_PROFIL')
@@ -110,13 +119,22 @@ export default {
                     img: url,
                 })
              })
-        }
-      )
+        })
         },
         updateName () {
+            document.querySelector(".edt").style.display = 'none'
+            document.querySelector(".nm").style.display ='block'
             firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
                 .update({
-                    displayName: this.name.displayName
+                    displayName: this.personalData[0].displayName
+                })
+        },
+        updateStatus () {
+            document.querySelector(".a1").style.display = 'none'
+            document.querySelector(".a2").style.display ='block'
+            firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
+                .update({
+                    status: this.personalData[0].status
                 })
         }
     },
@@ -139,7 +157,7 @@ export default {
 }
 .nav-profile {
   width: 100%;
-  height: 60px;
+  height: 66px;
   background: rgb(5, 13, 20);
 }
 .parent {
@@ -210,10 +228,21 @@ export default {
   font-size: 24px;
   padding: 0 5px 10px 0;
 }
+.a1 {
+  display: none;
+  height: 40px;
+  width: 300px;
+  border: none;
+  outline: none;
+  padding: 0 5px 10px 0;
+}
 .editok {
   display: flex;
 }
 .nm {
+  display: flex;
+}
+.a2 {
   display: flex;
 }
 .ur-info {

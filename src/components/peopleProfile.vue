@@ -8,9 +8,18 @@
       <div class="info-contact" >
         <img :src="navContact.img" alt />
       </div>
-      <div class="name-people">{{navContact.displayName}}</div>
-      <div class="email-people">{{navContact.email}}</div>
-      <div class="email-people">{{navContact.status}}</div>
+      <div class="name-people">
+        <section>Name</section>
+        <section>{{navContact.displayName}}</section>
+        </div>
+      <div class="email-people">
+        <section>Email</section>
+        <section>{{navContact.email}}</section>
+        </div>
+      <div class="email-people">
+        <section>Status</section>
+        <section>{{navContact.status}}</section>  
+        </div>
       <div class="location p-2">
         <div>
           <p>Location</p>
@@ -51,7 +60,7 @@ export default {
 }
 .nav-contact {
   width: 100%;
-  height: 60px;
+  height: 66px;
   background: rgb(5, 13, 20);
   border-left: 1px solid rgba(0, 0, 0, 0.12);
 }
@@ -84,9 +93,10 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 15px 0px;
 }
 .info-contact img {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .name-people {
   display: flex;

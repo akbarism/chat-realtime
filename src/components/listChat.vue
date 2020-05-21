@@ -1,11 +1,12 @@
 <template>
   <div class="list-chat">
-    <div class="logo d-flex justify-content-center">
+    <!-- <div class="logo d-flex justify-content-center">
       <img src="../assets/img/centi-mater-fix.png" alt />
       <h3>centiMeter</h3>
-    </div>
-    <div class="nav-list" v-for="(Data, displayName) in personalData" :key="displayName">
-      <img @click="$emit('switch')" class="pp" :src="Data.img" alt />
+    </div> -->
+    <div class="nav-list" 
+    >
+      <img :src="personalData[0].img" @click="$emit('switch')" class="pp" alt />
       <img class="add-chat" src="../assets/img/icon-chating.svg" alt title="New Chat" />
       <div class="btn-group dropleft">
         <i
@@ -29,15 +30,15 @@
       <input type="text" placeholder="search something hehe" />
     </div>
     <div class="parent-chat">
-      <div  v-for="(Data, displayName) in myData" :key="displayName">
-        <div class="child-chat" v-if="Data.email !== authUser.email" >
+      <div  v-for="Data in myData" :key="Data.id">
+        <div class="child-chat" v-if="Data.email !== authUser.email" @click="switchToChat(Data.displayName)">
           <img :src="Data.img" alt />
           <div class="info-msg" >
-            <div class="list-name">
-              <h6 @click="switchToChat(Data.displayName)">{{Data.displayName}}</h6>
+            <div class="list-name" >
+              <h6 >{{Data.displayName}}</h6>
             </div>
             <div class="msg">
-              <p>{{Data.status}}</p>
+              <p>{{msgs.messages}}</p>
             </div>
           </div>
           <div class="end-msg d-flex align-items-center" >
@@ -53,7 +54,6 @@
 
 <script>
 import firebase from 'firebase'
-// import db from './firebaseInit'
 
 export default {
     name: 'listChat',
@@ -69,19 +69,23 @@ export default {
         myData() {
             return this.$store.state.myData
         },
+        msgs() {
+         return this.$store.state.messages
+        },
         personalData() {
             return this.$store.state.personalData
         }
     },
     methods: {
         logout() {
-            firebase.auth().signOut()
-            firebase.firestore().collection('user').doc(this.logoutUser)
+          firebase.firestore().collection('user').doc(this.logoutUser)
             .update({
-             info: false
+              info: false
             })
-            .then(
-                this.$router.go('/login') )
+            .then(() => {
+              firebase.auth().signOut()
+              this.$router.go('/login') 
+            })
             .catch(error => {
                 console.log(error)
             })
@@ -103,12 +107,14 @@ export default {
         },
         fetchMessage() {
         this.$store.commit('FETCH')
-        }
+        },
     },
+
     created() {
         this.getMyData();
         this.authUser = firebase.auth().currentUser;
         this.getContact();
+        
     }
 }
 </script>
@@ -128,9 +134,8 @@ export default {
 .logo {
   width: 100%;
   height: 60px;
-  background: rgb(5, 13, 20);
+  background: #3470bf;
   padding: 5px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 .logo h3 {
   color: #ffffff;
@@ -149,7 +154,8 @@ export default {
   height: 55px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 230px;
+  margin-right: 200px;
+  margin-left: 20px;
   cursor: pointer;
 }
 .search {

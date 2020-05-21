@@ -69,6 +69,7 @@ export default {
                 firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid)
                 .set({
                     email: this.email,
+                    password: this.password,
                     displayName: this.fullname,
                     status: 'hi there ! im good,',
                     info: true,
@@ -92,7 +93,7 @@ export default {
 .container-fluid {
   margin: 0;
   padding: 0;
-  background: linear-gradient(150deg, #3470bf, rgb(5, 13, 20));
+  background: #3470bf;
   height: 100vh;
 }
 .tagline {
@@ -104,7 +105,6 @@ export default {
 .title img {
   width: 110px;
   height: 100px;
-  /* object-fit: cover; */
 }
 .title h1 {
   color: #ffffff;
@@ -115,10 +115,9 @@ export default {
 .for-from {
   width: 30%;
   height: 100vh;
-  /* background: #f7d9e1; */
 }
 .btn {
-  background: linear-gradient(150deg, #3470bf, rgb(5, 13, 20));
+  background: #3470bf;
   border: none;
 }
 @media only screen and (max-width: 600px) {

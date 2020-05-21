@@ -78,7 +78,7 @@ export default {
 .container-fluid {
   margin: 0;
   padding: 0;
-  background: linear-gradient(150deg, #3470bf, rgb(5, 13, 20));
+  background: #3470bf;
   height: 100vh;
 }
 .tagline {
@@ -104,7 +104,7 @@ export default {
   /* background: #f7d9e1; */
 }
 .btn {
-  background: linear-gradient(150deg, #3470bf, rgb(5, 13, 20));
+  background: #3470bf;
   border: none;
 }
 @media only screen and (max-width: 600px) {

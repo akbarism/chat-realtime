@@ -75,11 +75,6 @@ export default {
      backToList() {
             document.querySelector(".chat").style.display = 'none'
         },
-    // getContact() {
-    //     this.$store.dispatch('getDataContact')
-    //     console.log(this.$store.dispatch('getDataContact'));
-        
-    // }
  },
  created() {
      firebase.auth().onAuthStateChanged(user => {
@@ -116,10 +111,10 @@ export default {
   display: flex;
   align-items: center;
   padding: 0 10px 0 10px;
-  height: 60px;
+  height: 66px;
   width: 100%;
-  background: rgb(5, 13, 20);
-  border-left: 1px solid rgba(0, 0, 0, 0.12);
+  background: #3470bf;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.600);
 }
 .nav-chat img {
   width: 50px;
@@ -138,9 +133,8 @@ export default {
 .main-chat {
   width: 100%;
   height: 503px;
-  border-left: 1px solid rgba(0, 0, 0, 0.12);
   padding: 15px;
-  background: #e0e0e0;
+  background: #e0e0e094;
   overflow-y: scroll;
 }
 .text-here {
@@ -153,7 +147,6 @@ export default {
 }
 .text-here input {
   width: 900px;
-  /* border-radius: 30px; */
   border: none;
   outline: none;
   padding: 10px 10px 10px 20px;

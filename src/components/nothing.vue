@@ -3,7 +3,7 @@
      <nav class="nav-not"></nav>
      <div>
          <div class="body">
-             <img src="../assets/img/logo-gradient.png" alt="">
+             <img src="../assets/img/centi-mater-fix.png" alt="">
              <p>Please Select a chat to start messaging</p>
          </div>
      </div>
@@ -25,19 +25,18 @@ export default {
      height: 100vh;
      left: 400px;
      top: 0;
-     border-left: 1px solid rgba(0, 0, 0, 0.12);
      background: #e0e0e0;
      }
  .nav-not{
     display: flex;
-    height: 60px;
+    height: 66px;
     width: 100%;
-    background: rgb(5, 13, 20);
-    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    background: #3470bf;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
  }
  .body {
      width: 100%;
-     height: 565px;
+     height: 560px;
      display: flex;
      justify-content: center;
      align-items: center;

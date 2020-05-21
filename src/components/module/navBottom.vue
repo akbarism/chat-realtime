@@ -22,7 +22,7 @@ export default {
   width: 50px;
   height: 60px;
   bottom: 0;
-  background: rgb(5, 13, 20);
+  background: #3470bf;
   padding: 3px;
   z-index: 5;
 }
@@ -51,7 +51,8 @@ export default {
 .slash {
   width: 2px;
   height: 60px;
-  background: #3470bf;
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   transform: rotate(20deg);
 }
 .fas {
